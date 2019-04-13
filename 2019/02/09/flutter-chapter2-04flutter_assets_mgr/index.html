@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="资源管理Flutter应用程序可以包含代码和 assets（有时称为资源）。assets是会打包到程序安装包中的，可在运行时访问。常见类型的assets包括静态数据（例如JSON文件）、配置文件、图标和图片（JPEG，WebP，GIF，动画WebP / GIF，PNG，BMP和WBMP）等。 指定 assets和包管理一样，Flutter也使用pubspec.yaml文件来管理应用程序所需的资源。">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第二章 - 04资源管理">
+<meta property="og:url" content="http://yoursite.com/2019/02/09/flutter-chapter2-04flutter_assets_mgr/index.html">
+<meta property="og:site_name" content="小沈曰">
+<meta property="og:description" content="资源管理Flutter应用程序可以包含代码和 assets（有时称为资源）。assets是会打包到程序安装包中的，可在运行时访问。常见类型的assets包括静态数据（例如JSON文件）、配置文件、图标和图片（JPEG，WebP，GIF，动画WebP / GIF，PNG，BMP和WBMP）等。 指定 assets和包管理一样，Flutter也使用pubspec.yaml文件来管理应用程序所需的资源。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://flutterchina.club/images/assets-and-images/android-icon-path.png">
+<meta property="og:image" content="https://flutterchina.club/images/assets-and-images/ios-icon-path.png">
+<meta property="og:image" content="https://flutterchina.club/images/assets-and-images/launch-screen.png">
+<meta property="og:image" content="https://flutterchina.club/images/assets-and-images/ios-launchscreen-xcode.png">
+<meta property="og:updated_time" content="2019-04-13T08:07:04.785Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第二章 - 04资源管理">
+<meta name="twitter:description" content="资源管理Flutter应用程序可以包含代码和 assets（有时称为资源）。assets是会打包到程序安装包中的，可在运行时访问。常见类型的assets包括静态数据（例如JSON文件）、配置文件、图标和图片（JPEG，WebP，GIF，动画WebP / GIF，PNG，BMP和WBMP）等。 指定 assets和包管理一样，Flutter也使用pubspec.yaml文件来管理应用程序所需的资源。">
+<meta name="twitter:image" content="https://flutterchina.club/images/assets-and-images/android-icon-path.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/02/09/flutter-chapter2-04flutter_assets_mgr/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>第二章 - 04资源管理 | 小沈曰</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小沈曰</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">自由不是你想做什么就做什么，而是你不想做什么就可以不做什么。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/flutter-chapter2-04flutter_assets_mgr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="st">
+      <meta itemprop="description" content="人生滋味，情最浓；世间繁华，淡最真。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沈曰">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第二章 - 04资源管理
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-09 20:19:18" itemprop="dateCreated datePublished" datetime="2019-02-09T20:19:18+08:00">2019-02-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-13 16:07:04" itemprop="dateModified" datetime="2019-04-13T16:07:04+08:00">2019-04-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/flutter/" itemprop="url" rel="index"><span itemprop="name">flutter</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h1><p>Flutter应用程序可以包含代码和 assets（有时称为资源）。assets是会打包到程序安装包中的，可在运行时访问。常见类型的assets包括静态数据（例如JSON文件）、配置文件、图标和图片（JPEG，WebP，GIF，动画WebP / GIF，PNG，BMP和WBMP）等。</p>
+<h2 id="指定-assets"><a href="#指定-assets" class="headerlink" title="指定 assets"></a>指定 assets</h2><p>和包管理一样，Flutter也使用<a href="https://www.dartlang.org/tools/pub/pubspec" target="_blank" rel="noopener"><code>pubspec.yaml</code></a>文件来管理应用程序所需的资源。举一个例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flutter:</span><br><span class="line">  assets:</span><br><span class="line">    - assets/my_icon.png</span><br><span class="line">    - assets/background.png</span><br></pre></td></tr></table></figure>
+<p><code>assets</code>指定应包含在应用程序中的文件。 每个asset都通过相对于<code>pubspec.yaml</code>文件所在位置的显式路径进行标识。asset的声明顺序是无关紧要的。asset的实际目录可以是任意文件夹（在本示例中是assets）。</p>
+<p>在构建期间，Flutter将asset放置到称为 <em>asset bundle</em> 的特殊存档中，应用程序可以在运行时读取它们（但不能修改）。</p>
+<h2 id="Asset-变体（variant）"><a href="#Asset-变体（variant）" class="headerlink" title="Asset 变体（variant）"></a>Asset 变体（variant）</h2><p>构建过程支持asset变体的概念：不同版本的asset可能会显示在不同的上下文中。 在<code>pubspec.yaml</code>的assets部分中指定asset路径时，构建过程中，会在相邻子目录中查找具有相同名称的任何文件。这些文件随后会与指定的asset一起被包含在asset bundle中。</p>
+<p>例如，如果应用程序目录中有以下文件:</p>
+<ul>
+<li>…/pubspec.yaml</li>
+<li>…/graphics/my_icon.png</li>
+<li>…/graphics/background.png</li>
+<li>…/graphics/dark/background.png</li>
+<li>…etc.</li>
+</ul>
+<p>然后<code>pubspec.yaml</code>文件中只需包含:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flutter:</span><br><span class="line">  assets:</span><br><span class="line">    - graphics/background.png</span><br></pre></td></tr></table></figure>
+<p>那么这两个<code>graphics/background.png</code>和<code>graphics/dark/background.png</code> 都将包含在您的asset bundle中。前者被认为是<em>main asset</em> （主资源），后者被认为是一种变体（variant）。</p>
+<p>在选择匹配当前设备分辨率的图片时，Flutter会使用到asset变体（见下文），将来，Flutter可能会将这种机制扩展到本地化、阅读提示等方面。</p>
+<h2 id="加载-assets"><a href="#加载-assets" class="headerlink" title="加载 assets"></a>加载 assets</h2><p>您的应用可以通过<a href="https://docs.flutter.io/flutter/services/AssetBundle-class.html" target="_blank" rel="noopener"><code>AssetBundle</code></a>对象访问其asset 。有两种主要方法允许从Asset bundle中加载字符串或图片(二进制)文件。</p>
+<h3 id="加载文本assets"><a href="#加载文本assets" class="headerlink" title="加载文本assets"></a>加载文本assets</h3><ul>
+<li>通过<a href="https://docs.flutter.io/flutter/services/rootBundle.html" target="_blank" rel="noopener"><code>rootBundle</code></a> 对象加载：每个Flutter应用程序都有一个<a href="https://docs.flutter.io/flutter/services/rootBundle.html" target="_blank" rel="noopener"><code>rootBundle</code></a>对象， 通过它可以轻松访问主资源包，直接使用<code>package:flutter/services.dart</code>中全局静态的<code>rootBundle</code>对象来加载asset即可。</li>
+<li>通过 <a href="https://docs.flutter.io/flutter/widgets/DefaultAssetBundle-class.html" target="_blank" rel="noopener"><code>DefaultAssetBundle</code></a> 加载：建议使用 <a href="https://docs.flutter.io/flutter/widgets/DefaultAssetBundle-class.html" target="_blank" rel="noopener"><code>DefaultAssetBundle</code></a> 来获取当前BuildContext的AssetBundle。 这种方法不是使用应用程序构建的默认asset bundle，而是使父级widget在运行时动态替换的不同的AssetBundle，这对于本地化或测试场景很有用。</li>
+</ul>
+<p>通常，可以使用<code>DefaultAssetBundle.of()</code>在应用运行时来间接加载asset（例如JSON文件），而在widget上下文之外，或其它<code>AssetBundle</code>句柄不可用时，可以使用<code>rootBundle</code>直接加载这些asset，例如：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'dart:async'</span> show Future;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/services.dart'</span> show rootBundle;</span><br><span class="line"></span><br><span class="line">Future&lt;<span class="built_in">String</span>&gt; loadAsset() <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> rootBundle.loadString(<span class="string">'assets/config.json'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="加载图片"><a href="#加载图片" class="headerlink" title="加载图片"></a>加载图片</h3><p>类似于原生开发，Flutter也可以为当前设备加载适合其分辨率的图像。</p>
+<h4 id="声明分辨率相关的图片-assets"><a href="#声明分辨率相关的图片-assets" class="headerlink" title="声明分辨率相关的图片 assets"></a>声明分辨率相关的图片 assets</h4><p><a href="https://docs.flutter.io/flutter/painting/AssetImage-class.html" target="_blank" rel="noopener"><code>AssetImage</code></a> 可以将asset的请求逻辑映射到最接近当前设备像素比例(dpi)的asset。为了使这种映射起作用，必须根据特定的目录结构来保存asset：</p>
+<ul>
+<li>…/image.png</li>
+<li>…/<strong>M</strong>x/image.png</li>
+<li>…/<strong>N</strong>x/image.png</li>
+<li>…etc.</li>
+</ul>
+<p>其中M和N是数字标识符，对应于其中包含的图像的分辨率，也就是说，它们指定不同设备像素比例的图片。</p>
+<p>主资源默认对应于1.0倍的分辨率图片。看一个例子：</p>
+<ul>
+<li>…/my_icon.png</li>
+<li>…/2.0x/my_icon.png</li>
+<li>…/3.0x/my_icon.png</li>
+</ul>
+<p>在设备像素比率为1.8的设备上，<code>.../2.0x/my_icon.png</code> 将被选择。对于2.7的设备像素比率，<code>.../3.0x/my_icon.png</code>将被选择。</p>
+<p>如果未在<code>Image</code> widget上指定渲染图像的宽度和高度，那么<code>Image</code> widget将占用与主资源相同的屏幕空间大小。 也就是说，如果<code>.../my_icon.png</code>是72px乘72px，那么<code>.../3.0x/my_icon.png</code>应该是216px乘216px; 但如果未指定宽度和高度，它们都将渲染为72像素×72像素（以逻辑像素为单位）。</p>
+<p><code>pubspec.yaml</code>中asset部分中的每一项都应与实际文件相对应，但主资源项除外。当主资源缺少某个资源时，会按分辨率从低到高的顺序去选择 ，也就是说1x中没有的话会在2x中找，2x中还没有的话就在3x中找。</p>
+<h4 id="加载图片-1"><a href="#加载图片-1" class="headerlink" title="加载图片"></a>加载图片</h4><p>要加载图片，可以使用 <a href="https://docs.flutter.io/flutter/painting/AssetImage-class.html" target="_blank" rel="noopener"><code>AssetImage</code></a>类。例如，我们可以从上面的asset声明中加载背景图片：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> DecoratedBox(</span><br><span class="line">    decoration: <span class="keyword">new</span> BoxDecoration(</span><br><span class="line">      image: <span class="keyword">new</span> DecorationImage(</span><br><span class="line">        image: <span class="keyword">new</span> AssetImage(<span class="string">'graphics/background.png'</span>),</span><br><span class="line">      ),</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，<code>AssetImage</code> 并非是一个widget， 它实际上是一个<code>ImageProvider</code>，有些时候你可能期望直接得到一个显示图片的widget，那么你可以使用<code>Image.asset()</code>方法，如：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> Image.asset(<span class="string">'graphics/background.png'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用默认的 asset bundle 加载资源时，内部会自动处理分辨率等，这些处理对开发者来说是无感知的。 (如果使用一些更低级别的类，如 <a href="https://docs.flutter.io/flutter/painting/ImageStream-class.html" target="_blank" rel="noopener"><code>ImageStream</code></a>或 <a href="https://docs.flutter.io/flutter/painting/ImageCache-class.html" target="_blank" rel="noopener"><code>ImageCache</code></a> 时你会注意到有与缩放相关的参数)</p>
+<h4 id="依赖包中的资源图片"><a href="#依赖包中的资源图片" class="headerlink" title="依赖包中的资源图片"></a>依赖包中的资源图片</h4><p>要加载依赖包中的图像，必须给<code>AssetImage</code>提供<code>package</code>参数。</p>
+<p>例如，假设您的应用程序依赖于一个名为“my_icons”的包，它具有如下目录结构：</p>
+<ul>
+<li>…/pubspec.yaml</li>
+<li>…/icons/heart.png</li>
+<li>…/icons/1.5x/heart.png</li>
+<li>…/icons/2.0x/heart.png</li>
+<li>…etc.</li>
+</ul>
+<p>然后加载图像，使用:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> AssetImage(<span class="string">'icons/heart.png'</span>, package: <span class="string">'my_icons'</span>)</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Image.asset(<span class="string">'icons/heart.png'</span>, package: <span class="string">'my_icons'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>注意：包在使用本身的资源时也应该加上<code>package</code>参数来获取</strong>。</p>
+<h5 id="打包包中的-assets"><a href="#打包包中的-assets" class="headerlink" title="打包包中的 assets"></a>打包包中的 assets</h5><p>如果在<code>pubspec.yaml</code>文件中声明了期望的资源，它将会打包到相应的package中。特别是，包本身使用的资源必须在<code>pubspec.yaml</code>中指定。</p>
+<p>包也可以选择在其<code>lib/</code>文件夹中包含未在其<code>pubspec.yaml</code>文件中声明的资源。在这种情况下，对于要打包的图片，应用程序必须在<code>pubspec.yaml</code>中指定包含哪些图像。 例如，一个名为“fancy_backgrounds”的包，可能包含以下文件：</p>
+<ul>
+<li>…/lib/backgrounds/background1.png</li>
+<li>…/lib/backgrounds/background2.png</li>
+<li>…/lib/backgrounds/background3.png</li>
+</ul>
+<p>要包含第一张图像，必须在<code>pubspec.yaml</code>的assets部分中声明它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">flutter:</span><br><span class="line">  assets:</span><br><span class="line">    - packages/fancy_backgrounds/backgrounds/background1.png</span><br></pre></td></tr></table></figure>
+<p><code>lib/</code>是隐含的，所以它不应该包含在资产路径中。</p>
+<h3 id="特定平台-assets"><a href="#特定平台-assets" class="headerlink" title="特定平台 assets"></a>特定平台 assets</h3><p>上面的资源都是flutter应用中的，这些资源只有在Flutter框架运行之后才能使用，如果要给我们的应用设置APP图标或者添加启动图，那我们必须使用特定平台的assets。</p>
+<h4 id="设置APP图标"><a href="#设置APP图标" class="headerlink" title="设置APP图标"></a>设置APP图标</h4><p>更新Flutter应用程序启动图标的方式与在本机Android或iOS应用程序中更新启动图标的方式相同。</p>
+<ul>
+<li><p>Android</p>
+<p>在Flutter项目的根目录中，导航到<code>.../android/app/src/main/res</code>目录，里面包含了各种资源文件夹（如<code>mipmap-hdpi</code>已包含占位符图像”ic_launcher.png”）。 只需按照<a href="https://developer.android.com/guide/practices/ui_guidelines/icon_design_launcher.html#size" target="_blank" rel="noopener">Android开发人员指南</a>中的说明， 将其替换为所需的资源，并遵守每种屏幕密度（dpi）的建议图标大小标准。</p>
+<p><img src="https://flutterchina.club/images/assets-and-images/android-icon-path.png" alt="Android icon location"></p>
+<blockquote>
+<p><strong>注意:</strong> 如果您重命名.png文件，则还必须在您<code>AndroidManifest.xml</code>的<code>&lt;application&gt;</code>标签的<code>android:icon</code>属性中更新名称。</p>
+</blockquote>
+</li>
+<li><p>iOS</p>
+<p>在Flutter项目的根目录中，导航到<code>.../ios/Runner</code>。该目录中<code>Assets.xcassets/AppIcon.appiconset</code>已经包含占位符图片。 只需将它们替换为适当大小的图片。保留原始文件名称。</p>
+<p><img src="https://flutterchina.club/images/assets-and-images/ios-icon-path.png" alt="iOS icon location"></p>
+</li>
+</ul>
+<h4 id="更新启动页"><a href="#更新启动页" class="headerlink" title="更新启动页"></a>更新启动页</h4><p><img src="https://flutterchina.club/images/assets-and-images/launch-screen.png" alt="Launch screen"></p>
+<p>在Flutter框架加载时，Flutter会使用本地平台机制绘制启动页。此启动页将持续到Flutter渲染应用程序的第一帧时。</p>
+<blockquote>
+<p><strong>注意:</strong> 这意味着如果您不在应用程序的<code>main()</code>方法中调用<a href="https://docs.flutter.io/flutter/widgets/runApp.html" target="_blank" rel="noopener">runApp</a> 函数 （或者更具体地说，如果您不调用<a href="https://docs.flutter.io/flutter/dart-ui/Window/render.html" target="_blank" rel="noopener"><code>window.render</code></a>去响应<a href="https://docs.flutter.io/flutter/dart-ui/Window/onDrawFrame.html" target="_blank" rel="noopener"><code>window.onDrawFrame</code></a>）的话， 启动屏幕将永远持续显示。</p>
+</blockquote>
+<h5 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h5><p>要将启动屏幕（splash screen）添加到您的Flutter应用程序， 请导航至<code>.../android/app/src/main</code>。在<code>res/drawable/launch_background.xml</code>，通过自定义drawable来实现自定义启动界面（你也可以直接换一张图片）。</p>
+<h5 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h5><p>要将图片添加到启动屏幕（splash screen）的中心，请导航至<code>.../ios/Runner</code>。在<code>Assets.xcassets/LaunchImage.imageset</code>， 拖入图片，并命名为<code>LaunchImage.png</code>、<a href="mailto:`LaunchImage@2x.png" target="_blank" rel="noopener">`LaunchImage@2x.png</a><code>、</code><a href="mailto:LaunchImage@3x.png" target="_blank" rel="noopener">LaunchImage@3x.png</a><code>。 如果你使用不同的文件名，那您还必须更新同一目录中的</code>Contents.json`文件，图片的具体尺寸可以查看苹果官方的标准。</p>
+<p>您也可以通过打开Xcode完全自定义storyboard。在Project Navigator中导航到<code>Runner/Runner</code>然后通过打开<code>Assets.xcassets</code>拖入图片，或者通过在LaunchScreen.storyboard中使用Interface Builder进行自定义。</p>
+<p><img src="https://flutterchina.club/images/assets-and-images/ios-launchscreen-xcode.png" alt="Adding launch icons in Xcode"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/08/flutter-chapter2-03flutter_package_mgr/" rel="next" title="第二章 - 03包管理">
+                <i class="fa fa-chevron-left"></i> 第二章 - 03包管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/10/flutter-chapter2-05flutter_app_debug/" rel="prev" title="第二章 - 05资源管理">
+                第二章 - 05资源管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="st">
+            
+              <p class="site-author-name" itemprop="name">st</p>
+              <div class="site-description motion-element" itemprop="description">人生滋味，情最浓；世间繁华，淡最真。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/STShenZhaoliang" title="GitHub &rarr; https://github.com/STShenZhaoliang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#资源管理"><span class="nav-number">1.</span> <span class="nav-text">资源管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指定-assets"><span class="nav-number">1.1.</span> <span class="nav-text">指定 assets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Asset-变体（variant）"><span class="nav-number">1.2.</span> <span class="nav-text">Asset 变体（variant）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载-assets"><span class="nav-number">1.3.</span> <span class="nav-text">加载 assets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载文本assets"><span class="nav-number">1.3.1.</span> <span class="nav-text">加载文本assets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载图片"><span class="nav-number">1.3.2.</span> <span class="nav-text">加载图片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#声明分辨率相关的图片-assets"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">声明分辨率相关的图片 assets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加载图片-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">加载图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖包中的资源图片"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">依赖包中的资源图片</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#打包包中的-assets"><span class="nav-number">1.3.2.3.1.</span> <span class="nav-text">打包包中的 assets</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特定平台-assets"><span class="nav-number">1.3.3.</span> <span class="nav-text">特定平台 assets</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置APP图标"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">设置APP图标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新启动页"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">更新启动页</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Android"><span class="nav-number">1.3.3.2.1.</span> <span class="nav-text">Android</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS"><span class="nav-number">1.3.3.2.2.</span> <span class="nav-text">iOS</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">st</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
