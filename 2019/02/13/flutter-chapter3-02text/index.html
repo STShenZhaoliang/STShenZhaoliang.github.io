@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="文本及样式TextText用于显示简单样式文本，它包含一些控制文本显示样式的一些属性，一个简单的例子如下： 123456789101112Text(&quot;Hello world&quot;,  textAlign: TextAlign.center,);Text(&quot;Hello world! I&apos;m Jack. &quot;*4,  maxLines: 1,  overflow: TextOverflow.ellipsis">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三章 - 02文本及样式">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/flutter-chapter3-02text/index.html">
+<meta property="og:site_name" content="小沈曰">
+<meta property="og:description" content="文本及样式TextText用于显示简单样式文本，它包含一些控制文本显示样式的一些属性，一个简单的例子如下： 123456789101112Text(&quot;Hello world&quot;,  textAlign: TextAlign.center,);Text(&quot;Hello world! I&apos;m Jack. &quot;*4,  maxLines: 1,  overflow: TextOverflow.ellipsis">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829103242552.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829104807535.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829111601391.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829114929736.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829135406156.png">
+<meta property="og:updated_time" content="2019-04-13T08:33:07.060Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第三章 - 02文本及样式">
+<meta name="twitter:description" content="文本及样式TextText用于显示简单样式文本，它包含一些控制文本显示样式的一些属性，一个简单的例子如下： 123456789101112Text(&quot;Hello world&quot;,  textAlign: TextAlign.center,);Text(&quot;Hello world! I&apos;m Jack. &quot;*4,  maxLines: 1,  overflow: TextOverflow.ellipsis">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829103242552.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/02/13/flutter-chapter3-02text/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>第三章 - 02文本及样式 | 小沈曰</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小沈曰</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">自由不是你想做什么就做什么，而是你不想做什么就可以不做什么。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/flutter-chapter3-02text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="st">
+      <meta itemprop="description" content="人生滋味，情最浓；世间繁华，淡最真。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沈曰">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第三章 - 02文本及样式
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-13 20:19:18" itemprop="dateCreated datePublished" datetime="2019-02-13T20:19:18+08:00">2019-02-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-13 16:33:07" itemprop="dateModified" datetime="2019-04-13T16:33:07+08:00">2019-04-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/flutter/" itemprop="url" rel="index"><span itemprop="name">flutter</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="文本及样式"><a href="#文本及样式" class="headerlink" title="文本及样式"></a>文本及样式</h2><h3 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h3><p>Text用于显示简单样式文本，它包含一些控制文本显示样式的一些属性，一个简单的例子如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Text(<span class="string">"Hello world"</span>,</span><br><span class="line">  textAlign: TextAlign.center,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">Text(<span class="string">"Hello world! I'm Jack. "</span>*<span class="number">4</span>,</span><br><span class="line">  maxLines: <span class="number">1</span>,</span><br><span class="line">  overflow: TextOverflow.ellipsis,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">Text(<span class="string">"Hello world"</span>,</span><br><span class="line">  textScaleFactor: <span class="number">1.5</span>,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829103242552.png" alt="image-20180829103242552"></p>
+<ul>
+<li><p><code>textAlign</code>：文本的对齐方式；可以选择左对齐、右对齐还是居中。注意，对齐的参考系是Text widget本身。本例中虽然是指定了居中对齐，但因为Text文本内容宽度不足一行，Text的宽度和文本内容长度相等，那么这时指定对齐方式是没有意义的，只有Text宽度大于文本内容长度时指定此属性才有意义。下面我们指定一个较长的字符串：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Text(<span class="string">"Hello world "</span>*<span class="number">6</span>,  <span class="comment">//字符串重复六次</span></span><br><span class="line">  textAlign: TextAlign.center,</span><br><span class="line">)；</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829104807535.png" alt="image-20180829104807535"></p>
+</li>
+</ul>
+<p>​      字符串内容超过一行，Text宽度等于屏幕宽度，第二行文本便会居中显示。</p>
+<ul>
+<li><code>maxLines</code>、<code>overflow</code>：指定文本显示的最大行数，默认情况下，文本是自动折行的，如果指定此参数，则文本最多不会超过指定的行。如果有多余的文本，可以通过<code>overflow</code>来指定截断方式，默认是直接截断，本例中指定的截断方式<code>TextOverflow.ellipsis</code>，它会将多余文本截断后以省略符“…”表示；TextOverflow的其它截断方式请参考SDK文档。</li>
+<li><code>textScaleFactor</code>：代表文本相对于当前字体大小的缩放因子，相对于去设置文本的样式<code>style</code>属性的<code>fontSize</code>，它是调整字体大小的一个快捷方式。该属性的默认值可以通过<code>MediaQueryData.textScaleFactor</code>获得，如果没有<code>MediaQuery</code>，那么会默认值将为1.0。</li>
+</ul>
+<h3 id="TextStyle"><a href="#TextStyle" class="headerlink" title="TextStyle"></a>TextStyle</h3><p>TextStyle用于指定文本显示的样式如颜色、字体、粗细、背景等。我们看一个示例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Text(<span class="string">"Hello world"</span>,</span><br><span class="line">  style: TextStyle(</span><br><span class="line">    color: Colors.blue,</span><br><span class="line">    fontSize: <span class="number">18.0</span>,</span><br><span class="line">    height: <span class="number">1.2</span>,  </span><br><span class="line">    fontFamily: <span class="string">"Courier"</span>,</span><br><span class="line">    background: <span class="keyword">new</span> Paint()..color=Colors.yellow,</span><br><span class="line">    decoration:TextDecoration.underline,</span><br><span class="line">    decorationStyle: TextDecorationStyle.dashed</span><br><span class="line">  ),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829111601391.png" alt="image-20180829111601391"></p>
+<p>此示例只展示了TextStyle的部分属性，它还有一些其它属性，属性名基本都是自解释的，在此不再赘述，读者可以查阅SDK文档。值得注意的是：</p>
+<ul>
+<li><p><code>height</code>：该属性用于指定行高，但它并不是一个绝对值，而是一个因子，具体的行高等于<code>fontSize</code>*<code>height</code>。</p>
+</li>
+<li><p><code>fontFamily</code> ：由于不同平台默认支持的字体集不同，所以在手动指定字体时一定要先在不同平台测试一下。</p>
+</li>
+<li><p><code>fontSize</code>：该属性和Text的<code>textScaleFactor</code>都用于控制字体大小。但是有两给主要区别：</p>
+<ul>
+<li><code>fontSize</code>可以精确指定字体大小，而<code>textScaleFactor</code>只能通过缩放比例来控制。</li>
+<li><code>textScaleFactor</code>主要是用于系统字体大小设置改变时对Flutter应用字体进行全局调整，而<code>fontSize</code>通常用于单个文本。</li>
+</ul>
+</li>
+</ul>
+<h3 id="TextSpan"><a href="#TextSpan" class="headerlink" title="TextSpan"></a>TextSpan</h3><p>在上面的例子中，Text的所有文本内容只能按同一种样式，如果我们需要对一个Text内容的不同部分按照不同的样式显示，这时就可以使用<code>TextSpan</code>，它代表文本的一个“片段”。我们看看TextSpan的定义:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TextSpan(&#123;</span><br><span class="line">  TextStyle style, </span><br><span class="line">  Sting text,</span><br><span class="line">  <span class="built_in">List</span>&lt;TextSpan&gt; children,</span><br><span class="line">  GestureRecognizer recognizer,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>其中<code>style</code> 和 <code>text</code>属性代表该文本片段的样式和内容。  <code>children</code>是一个<code>TextSpan</code>的数组，也就是说<code>TextSpan</code>可以包括其他<code>TextSpan</code>。而<code>recognizer</code>用于对该文本片段上用于手势进行识别处理。下面我们看一个效果，然后用<code>TextSpan</code>实现它。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829114929736.png" alt="image-20180829114929736"></p>
+<p>源码：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Text.rich(TextSpan(</span><br><span class="line">    children: [</span><br><span class="line">     TextSpan(</span><br><span class="line">       text: <span class="string">"Home: "</span></span><br><span class="line">     ),</span><br><span class="line">     TextSpan(</span><br><span class="line">       text: <span class="string">"https://flutterchina.club"</span>,</span><br><span class="line">       style: TextStyle(</span><br><span class="line">         color: Colors.blue</span><br><span class="line">       ),  </span><br><span class="line">       recognizer: _tapRecognizer</span><br><span class="line">     ),</span><br><span class="line">    ]</span><br><span class="line">))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面代码中，我们通过TextSpan实现了一个基础文本片段和一个链接片段，然后通过<code>Text.rich</code> 方法将<code>TextSpan</code> 添加到Text中，之所以可以这样做，是因为Text其实就是RichText的一个包装，而RichText是可以显示多种样式(富文本)的widget。</li>
+<li><code>_tapRecognizer</code>，它是点击链接后的一个处理器（代码已省略），关于手势识别的更多内容我们将在后面单独介绍。</li>
+</ul>
+<h3 id="DefaultTextStyle"><a href="#DefaultTextStyle" class="headerlink" title="DefaultTextStyle"></a>DefaultTextStyle</h3><p>在widget树中，文本的样式默认是可以被继承的，因此，如果在widget树的某一个节点处设置一个默认的文本样式，那么该节点的子树中所有文本都会默认使用这个样式，而DefaultTextStyle正是用于设置默认文本样式的。下面我们看一个例子：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">DefaultTextStyle(</span><br><span class="line">  <span class="comment">//1.设置文本默认样式  </span></span><br><span class="line">  style: TextStyle(</span><br><span class="line">    color:Colors.red,</span><br><span class="line">    fontSize: <span class="number">20.0</span>,</span><br><span class="line">  ),</span><br><span class="line">  textAlign: TextAlign.start,</span><br><span class="line">  child: Column(</span><br><span class="line">    crossAxisAlignment: CrossAxisAlignment.start,</span><br><span class="line">    children: &lt;Widget&gt;[</span><br><span class="line">      Text(<span class="string">"hello world"</span>),</span><br><span class="line">      Text(<span class="string">"I am Jack"</span>),</span><br><span class="line">      Text(<span class="string">"I am Jack"</span>,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">          inherit: <span class="keyword">false</span>, <span class="comment">//2.不继承默认样式</span></span><br><span class="line">          color: Colors.grey</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    ],</span><br><span class="line">  ),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>上面代码中，我们首先设置了一个默认的文本样式，即字体为20像素(逻辑像素)、颜色为红色。然后通过<code>DefaultTextStyle</code> 设置给了子树Column节点处，这样一来Column的所有子孙Text默认都会继承该样式，除非Text显示指定不继承样式，如代码中注释2。示例运行效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829135406156.png" alt="image-20180829135406156"></p>
+<h3 id="使用字体"><a href="#使用字体" class="headerlink" title="使用字体"></a>使用字体</h3><p>可以在Flutter应用程序中使用不同的字体。例如，我们可能会使用设计人员创建的自定义字体，或者其它第三方的字体，如<a href="https://fonts.google.com/" target="_blank" rel="noopener">Google Fonts</a>中的字体。本节将介绍如何为Flutter应用配置字体，并在渲染文本时使用它们。</p>
+<p>在Flutter中使用字体分两步完成。首先在<code>pubspec.yaml</code>中声明它们，以确保它们会打包到应用程序中。然后通过<a href="https://docs.flutter.io/flutter/painting/TextStyle-class.html" target="_blank" rel="noopener"><code>TextStyle</code></a>属性使用字体。</p>
+<h4 id="在asset中声明"><a href="#在asset中声明" class="headerlink" title="在asset中声明"></a>在asset中声明</h4><p>要将字体打文件打包到应用中，和使用其它资源一样，要先在<code>pubspec.yaml</code>中声明它。然后将字体文件复制到在<code>pubspec.yaml</code>中指定的位置。如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  fonts:</span></span><br><span class="line"><span class="attr">    - family:</span> <span class="string">Raleway</span></span><br><span class="line"><span class="attr">      fonts:</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">assets/fonts/Raleway-Regular.ttf</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">assets/fonts/Raleway-Medium.ttf</span></span><br><span class="line"><span class="attr">          weight:</span> <span class="number">500</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">assets/fonts/Raleway-SemiBold.ttf</span></span><br><span class="line"><span class="attr">          weight:</span> <span class="number">600</span></span><br><span class="line"><span class="attr">    - family:</span> <span class="string">AbrilFatface</span></span><br><span class="line"><span class="attr">      fonts:</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">assets/fonts/abrilfatface/AbrilFatface-Regular.ttf</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用字体-1"><a href="#使用字体-1" class="headerlink" title="使用字体"></a>使用字体</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明文本样式</span></span><br><span class="line"><span class="keyword">const</span> textStyle = <span class="keyword">const</span> TextStyle(</span><br><span class="line">  fontFamily: <span class="string">'Raleway'</span>,</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用文本样式</span></span><br><span class="line"><span class="keyword">var</span> buttonText = <span class="keyword">const</span> Text(</span><br><span class="line">  <span class="string">"Use the font for this text"</span>,</span><br><span class="line">  style: textStyle,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h4 id="Package中的字体"><a href="#Package中的字体" class="headerlink" title="Package中的字体"></a>Package中的字体</h4><p>要使用Package中定义的字体，必须提供<code>package</code>参数。例如，假设上面的字体声明位于<code>my_package</code>包中。然后创建TextStyle的过程如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> textStyle = <span class="keyword">const</span> TextStyle(</span><br><span class="line">  fontFamily: <span class="string">'Raleway'</span>,</span><br><span class="line">  package: <span class="string">'my_package'</span>, <span class="comment">//指定包名</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>如果在package包内部使用它自己定义的字体，也应该在创建文本样式时指定<code>package</code>参数，如上例所示。</p>
+<p>一个包也可以只提供字体文件而不需要在pubspec.yaml中声明。 这些文件应该存放在包的<code>lib/</code>文件夹中。字体文件不会自动绑定到应用程序中，应用程序可以在声明字体时有选择地使用这些字体。假设一个名为my_package的包中有一个字体文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lib/fonts/Raleway-Medium.ttf</span><br></pre></td></tr></table></figure>
+<p>然后，应用程序可以声明一个字体，如下面的示例所示：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">flutter:</span></span><br><span class="line"><span class="attr">  fonts:</span></span><br><span class="line"><span class="attr">    - family:</span> <span class="string">Raleway</span></span><br><span class="line"><span class="attr">      fonts:</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">assets/fonts/Raleway-Regular.ttf</span></span><br><span class="line"><span class="attr">        - asset:</span> <span class="string">packages/my_package/fonts/Raleway-Medium.ttf</span></span><br><span class="line"><span class="attr">          weight:</span> <span class="number">500</span></span><br></pre></td></tr></table></figure>
+<p><code>lib/</code>是隐含的，所以它不应该包含在asset路径中。</p>
+<p>在这种情况下，由于应用程序本地定义了字体，所以在创建TextStyle时可以不指定<code>package</code>参数：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> textStyle = <span class="keyword">const</span> TextStyle(</span><br><span class="line">  fontFamily: <span class="string">'Raleway'</span>,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/12/flutter-chapter3-01flutter_widget_intro/" rel="next" title="第三章 - 01Widget简介">
+                <i class="fa fa-chevron-left"></i> 第三章 - 01Widget简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/flutter-chapter3-03buttons/" rel="prev" title="第三章 - 03按钮">
+                第三章 - 03按钮 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="st">
+            
+              <p class="site-author-name" itemprop="name">st</p>
+              <div class="site-description motion-element" itemprop="description">人生滋味，情最浓；世间繁华，淡最真。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/STShenZhaoliang" title="GitHub &rarr; https://github.com/STShenZhaoliang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文本及样式"><span class="nav-number">1.</span> <span class="nav-text">文本及样式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Text"><span class="nav-number">1.1.</span> <span class="nav-text">Text</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TextStyle"><span class="nav-number">1.2.</span> <span class="nav-text">TextStyle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TextSpan"><span class="nav-number">1.3.</span> <span class="nav-text">TextSpan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DefaultTextStyle"><span class="nav-number">1.4.</span> <span class="nav-text">DefaultTextStyle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用字体"><span class="nav-number">1.5.</span> <span class="nav-text">使用字体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在asset中声明"><span class="nav-number">1.5.1.</span> <span class="nav-text">在asset中声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用字体-1"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Package中的字体"><span class="nav-number">1.5.3.</span> <span class="nav-text">Package中的字体</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">st</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

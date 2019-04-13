@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="进度条和大多数UI库一样，Flutter也提供了两种进度指示器。一种是水平方向线性的LinearProgressIndicator，另一种是圆形的CircularProgressIndicator。两种指示器都支持循环模式和精确精度:  循环模式：循环模式会有一个循环的动画，用于无法获得精确进度的场景，循环模式为默认模式。 精确模式：用于可以获得精确进度的场景，比如大多数文件下载场景。精确模式需要">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第三章 - 07进度条">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/flutter-chapter3-07progress_indicator/index.html">
+<meta property="og:site_name" content="小沈曰">
+<meta property="og:description" content="进度条和大多数UI库一样，Flutter也提供了两种进度指示器。一种是水平方向线性的LinearProgressIndicator，另一种是圆形的CircularProgressIndicator。两种指示器都支持循环模式和精确精度:  循环模式：循环模式会有一个循环的动画，用于无法获得精确进度的场景，循环模式为默认模式。 精确模式：用于可以获得精确进度的场景，比如大多数文件下载场景。精确模式需要">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180830205934166.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903142548051.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903144940343.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903161057739.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903162117829.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903162208760.png">
+<meta property="og:updated_time" content="2019-04-13T08:32:48.779Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第三章 - 07进度条">
+<meta name="twitter:description" content="进度条和大多数UI库一样，Flutter也提供了两种进度指示器。一种是水平方向线性的LinearProgressIndicator，另一种是圆形的CircularProgressIndicator。两种指示器都支持循环模式和精确精度:  循环模式：循环模式会有一个循环的动画，用于无法获得精确进度的场景，循环模式为默认模式。 精确模式：用于可以获得精确进度的场景，比如大多数文件下载场景。精确模式需要">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180830205934166.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/flutter-chapter3-07progress_indicator/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>第三章 - 07进度条 | 小沈曰</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小沈曰</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">自由不是你想做什么就做什么，而是你不想做什么就可以不做什么。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/flutter-chapter3-07progress_indicator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="st">
+      <meta itemprop="description" content="人生滋味，情最浓；世间繁华，淡最真。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沈曰">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第三章 - 07进度条
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-02-18 20:19:18" itemprop="dateCreated datePublished" datetime="2019-02-18T20:19:18+08:00">2019-02-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-13 16:32:48" itemprop="dateModified" datetime="2019-04-13T16:32:48+08:00">2019-04-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/flutter/" itemprop="url" rel="index"><span itemprop="name">flutter</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="进度条"><a href="#进度条" class="headerlink" title="进度条"></a>进度条</h2><p>和大多数UI库一样，Flutter也提供了两种进度指示器。一种是水平方向线性的LinearProgressIndicator，另一种是圆形的CircularProgressIndicator。两种指示器都支持循环模式和精确精度:</p>
+<ul>
+<li>循环模式：循环模式会有一个循环的动画，用于无法获得精确进度的场景，循环模式为默认模式。</li>
+<li>精确模式：用于可以获得精确进度的场景，比如大多数文件下载场景。精确模式需要提供<code>value</code>属性值，它的取值范围是[0,1]，代表当前进度的百分比。</li>
+</ul>
+<h3 id="水平进度条"><a href="#水平进度条" class="headerlink" title="水平进度条"></a>水平进度条</h3><p>LinearProgressIndicator是水平方向线性的进度条，下面分别给出循环模式和精确模式的示例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Column(</span><br><span class="line"> children: &lt;Widget&gt;[</span><br><span class="line">   <span class="comment">//循环模式  </span></span><br><span class="line">   LinearProgressIndicator(),</span><br><span class="line">   Padding(</span><br><span class="line">     padding: <span class="keyword">const</span> EdgeInsets.symmetric(vertical: <span class="number">8.0</span>),</span><br><span class="line">     child: LinearProgressIndicator(</span><br><span class="line">       backgroundColor: Colors.grey[<span class="number">200</span>],</span><br><span class="line">       value: <span class="number">.2</span>, <span class="comment">//精确模式，进度20%</span></span><br><span class="line">     ),</span><br><span class="line">   ),</span><br><span class="line">  ]</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180830205934166.png" alt="image-20180830205934166"></p>
+<h3 id="圆形进度条"><a href="#圆形进度条" class="headerlink" title="圆形进度条"></a>圆形进度条</h3><p>CircularProgressIndicator是圆形进度条，下面分别给出循环模式和精确模式的示例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Column(</span><br><span class="line">  children: &lt;Widget&gt;[</span><br><span class="line">    <span class="comment">//循环模式  </span></span><br><span class="line">    CircularProgressIndicator(),</span><br><span class="line">    Padding(</span><br><span class="line">      padding: <span class="keyword">const</span> EdgeInsets.only(top: <span class="number">20.0</span>),</span><br><span class="line">      child: CircularProgressIndicator(</span><br><span class="line">        value: <span class="number">.5</span>, <span class="comment">//精确模式，进度50%</span></span><br><span class="line">      ),</span><br><span class="line">    )</span><br><span class="line">  ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903142548051.png" alt="image-20180903142548051"></p>
+<p>CircularProgressIndicator支持一个strokeWidth属性，表示圆形进度条画笔的宽度，默认为4像素（逻辑像素），我们看看strokeWidth值为2.0时的效果：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903144940343.png" alt="image-20180903144940343"></p>
+<p>代码：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CircularProgressIndicator(</span><br><span class="line">  strokeWidth: <span class="number">2.0</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>由于LinearProgressIndicator和CircularProgressIndicator都继承自ProgressIndicator，所以它们都支持ProgressIndicator定义的一些属性，下面我们来看看常用属性：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ProgressIndicator(&#123;</span><br><span class="line">  ...  </span><br><span class="line">  <span class="built_in">double</span> value,</span><br><span class="line">  Color backgroundColor,</span><br><span class="line">  Animation&lt;Color&gt; valueColor,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>value：进度条当前的精确进度，如果为<code>null</code>，则精度条为循环模式。</p>
+</li>
+<li><p>backgroundColor：进度条背景色，目前只有在LinearProgressIndicator设置有效，CircularProgressIndicator暂不支持背景色。</p>
+</li>
+<li><p>valueColor：LinearProgressIndicator和CircularProgressIndicator的进度指示色都是一个动画值，也就是说指示色是可以执行动画的，只不过默认是使用了固定色(主题色)而已。我们可以指定一个<code>Animation&lt;Color&gt;</code>来为指示色执行动画：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CircularProgressIndicator(</span><br><span class="line">  valueColor: ColorTween(begin: Colors.blue, end: Colors.green)</span><br><span class="line">      .animate(_controller),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>这个示例运行后，圆形精度条的颜色会在蓝色和绿色之间渐变。关于动画的详细内容，请参考后面“动画”一章内容。</p>
+</li>
+</ul>
+<h3 id="自定义进度条样式"><a href="#自定义进度条样式" class="headerlink" title="自定义进度条样式"></a>自定义进度条样式</h3><h4 id="定义进度条大小"><a href="#定义进度条大小" class="headerlink" title="定义进度条大小"></a>定义进度条大小</h4><p>进度条本身没有控制大小的属性，LinearProgressIndicator的默认高度是6像素，宽度自适应。CircularProgressIndicator默认的宽度和高度皆为36像素。我们可以通过指定父容器的宽高来自定义其大小，如：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">SizedBox(</span><br><span class="line">    height: <span class="number">2.0</span>, <span class="comment">//高度指定为2像素</span></span><br><span class="line">    child: LinearProgressIndicator()</span><br><span class="line">),</span><br><span class="line"></span><br><span class="line">SizedBox(</span><br><span class="line">  height: <span class="number">80.0</span>, <span class="comment">//高度和宽度均指定为80像素</span></span><br><span class="line">  width: <span class="number">80.0</span>,</span><br><span class="line">  child: CircularProgressIndicator(),</span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903161057739.png" alt="image-20180903161057739"></p>
+<h4 id="自定义颜色"><a href="#自定义颜色" class="headerlink" title="自定义颜色"></a>自定义颜色</h4><p>假如我们想指定进度条颜色为绿色，有两种方法可以自定义进度条颜色，：</p>
+<ul>
+<li><p>通过主题来自定义：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Theme(</span><br><span class="line">  data: ThemeData(</span><br><span class="line">    primarySwatch: Colors.green,</span><br><span class="line">  ),</span><br><span class="line">  child: LinearProgressIndicator(</span><br><span class="line">    value: <span class="number">.2</span>,</span><br><span class="line">  ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903162117829.png" alt="image-20180903162117829"></p>
+<p>通过主题定义widget样式的方法在flutter中非常常见，我们将在后面专门“主题”章节详细介绍。</p>
+</li>
+<li><p>通过valueColor属性：</p>
+<p>我们可以通过给valueColor指定一个<code>AlwaysStoppedAnimation&lt;Color&gt;</code>对象来使用固定的颜色（而非动画颜色）。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CircularProgressIndicator(</span><br><span class="line">  valueColor: <span class="keyword">new</span> AlwaysStoppedAnimation&lt;Color&gt;(Colors.green),</span><br><span class="line">  value: <span class="number">.9</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>运行效果如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180903162208760.png" alt="image-20180903162208760"></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/17/flutter-chapter3-06input_and_form/" rel="next" title="第三章 - 06输入框及表单">
+                <i class="fa fa-chevron-left"></i> 第三章 - 06输入框及表单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/08/cocoapods-setup/" rel="prev" title="三步安装完成Cocoapods">
+                三步安装完成Cocoapods <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="st">
+            
+              <p class="site-author-name" itemprop="name">st</p>
+              <div class="site-description motion-element" itemprop="description">人生滋味，情最浓；世间繁华，淡最真。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/STShenZhaoliang" title="GitHub &rarr; https://github.com/STShenZhaoliang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进度条"><span class="nav-number">1.</span> <span class="nav-text">进度条</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#水平进度条"><span class="nav-number">1.1.</span> <span class="nav-text">水平进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#圆形进度条"><span class="nav-number">1.2.</span> <span class="nav-text">圆形进度条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">1.3.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义进度条样式"><span class="nav-number">1.4.</span> <span class="nav-text">自定义进度条样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义进度条大小"><span class="nav-number">1.4.1.</span> <span class="nav-text">定义进度条大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义颜色"><span class="nav-number">1.4.2.</span> <span class="nav-text">自定义颜色</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">st</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

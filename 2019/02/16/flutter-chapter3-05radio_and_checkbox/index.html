@@ -96,22 +96,18 @@
 
 
 
-  <meta name="description" content="常见配置问题Android Studio问题缺少依赖库问题上手安卓最常遇见的问题之一，错误如下图所示，此时点击超链接即可自动跳转到安装页面  安装之后重新运行即可。  连接不上Android Repository这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 File -&amp;gt; Settings -&amp;gt; Appearance &amp;amp; Behavior">
+  <meta name="description" content="单选开关和复选框Material widgets库中提供了Material风格的单选开关Switch和复选框Checkbox，它们都是继承自StatelessWidget，所以它们本身不会保存当前选择状态，所以一般都是在父widget中管理选中状态。当用户点击Switch或Checkbox时，它们会触发onChanged回调，我们可以在此回调中处理选中状态改变逻辑。我们看一个简单的示例： 1234">
 <meta name="keywords" content="flutter">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一章 - 04常见配置问题">
-<meta property="og:url" content="http://yoursite.com/2019/02/04/flutter-chapter1-04configuration/index.html">
+<meta property="og:title" content="第三章 - 05单选开关和复选框">
+<meta property="og:url" content="http://yoursite.com/2019/02/16/flutter-chapter3-05radio_and_checkbox/index.html">
 <meta property="og:site_name" content="小沈曰">
-<meta property="og:description" content="常见配置问题Android Studio问题缺少依赖库问题上手安卓最常遇见的问题之一，错误如下图所示，此时点击超链接即可自动跳转到安装页面  安装之后重新运行即可。  连接不上Android Repository这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 File -&amp;gt; Settings -&amp;gt; Appearance &amp;amp; Behavior">
+<meta property="og:description" content="单选开关和复选框Material widgets库中提供了Material风格的单选开关Switch和复选框Checkbox，它们都是继承自StatelessWidget，所以它们本身不会保存当前选择状态，所以一般都是在父widget中管理选中状态。当用户点击Switch或Checkbox时，它们会触发onChanged回调，我们可以在此回调中处理选中状态改变逻辑。我们看一个简单的示例： 1234">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/02/04/imgs/install_platforms_err.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/04/imgs/install_request_components.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/04/imgs/dl_google_err.png">
-<meta property="og:updated_time" content="2019-04-13T07:58:32.986Z">
+<meta property="og:updated_time" content="2019-04-13T08:33:01.169Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第一章 - 04常见配置问题">
-<meta name="twitter:description" content="常见配置问题Android Studio问题缺少依赖库问题上手安卓最常遇见的问题之一，错误如下图所示，此时点击超链接即可自动跳转到安装页面  安装之后重新运行即可。  连接不上Android Repository这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 File -&amp;gt; Settings -&amp;gt; Appearance &amp;amp; Behavior">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/04/imgs/install_platforms_err.png">
+<meta name="twitter:title" content="第三章 - 05单选开关和复选框">
+<meta name="twitter:description" content="单选开关和复选框Material widgets库中提供了Material风格的单选开关Switch和复选框Checkbox，它们都是继承自StatelessWidget，所以它们本身不会保存当前选择状态，所以一般都是在父widget中管理选中状态。当用户点击Switch或Checkbox时，它们会触发onChanged回调，我们可以在此回调中处理选中状态改变逻辑。我们看一个简单的示例： 1234">
 
 
 
@@ -119,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/02/04/flutter-chapter1-04configuration/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/16/flutter-chapter3-05radio_and_checkbox/">
 
 
 
@@ -129,7 +125,7 @@
   };
 </script>
 
-  <title>第一章 - 04常见配置问题 | 小沈曰</title>
+  <title>第三章 - 05单选开关和复选框 | 小沈曰</title>
   
 
 
@@ -349,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/04/flutter-chapter1-04configuration/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/16/flutter-chapter3-05radio_and_checkbox/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="st">
@@ -366,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第一章 - 04常见配置问题
+          <h1 class="post-title" itemprop="name headline">第三章 - 05单选开关和复选框
 
               
             
@@ -392,7 +388,7 @@
                 
               
 
-              <time title="Created: 2019-02-04 20:19:18" itemprop="dateCreated datePublished" datetime="2019-02-04T20:19:18+08:00">2019-02-04</time>
+              <time title="Created: 2019-02-16 20:19:18" itemprop="dateCreated datePublished" datetime="2019-02-16T20:19:18+08:00">2019-02-16</time>
             
 
             
@@ -409,7 +405,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-13 15:58:32" itemprop="dateModified" datetime="2019-04-13T15:58:32+08:00">2019-04-13</time>
+                <time title="Modified: 2019-04-13 16:33:01" itemprop="dateModified" datetime="2019-04-13T16:33:01+08:00">2019-04-13</time>
               
             
           </span>
@@ -461,36 +457,11 @@
       
 
       
-        <h1 id="常见配置问题"><a href="#常见配置问题" class="headerlink" title="常见配置问题"></a>常见配置问题</h1><h2 id="Android-Studio问题"><a href="#Android-Studio问题" class="headerlink" title="Android Studio问题"></a>Android Studio问题</h2><h4 id="缺少依赖库问题"><a href="#缺少依赖库问题" class="headerlink" title="缺少依赖库问题"></a>缺少依赖库问题</h4><p>上手安卓最常遇见的问题之一，错误如下图所示，此时点击超链接即可自动跳转到安装页面</p>
-<p><img src="../imgs/install_platforms_err.png" alt="install_platforms_err.png"></p>
-<p>安装之后重新运行即可。</p>
-<p><img src="../imgs/install_request_components.png" alt="install_request_components.png"></p>
-<h4 id="连接不上Android-Repository"><a href="#连接不上Android-Repository" class="headerlink" title="连接不上Android Repository"></a>连接不上Android Repository</h4><p>这也是最常见的问题之一，当你发现自己无法下载部分依赖的时候，请优先考虑这种情况。进入 <code>File</code> -&gt; <code>Settings</code> -&gt; <code>Appearance &amp; Behavior</code> -&gt; <code>System Settings</code> -&gt; <code>Android SDK</code> -&gt; <code>SDK Update Sites</code> 列表，可以看到此时的 <code>Android Repository</code> 无法连接。</p>
-<p><img src="../imgs/dl_google_err.png" alt="dl_google_err.png"></p>
-<p>解决方法如下：</p>
-<ol>
-<li>进入 <code>C:\windows\system32\drivers\etc\</code> </li>
-<li>打开 <code>hosts</code> 文件</li>
-<li>添加 <code>203.208.41.32 dl.google.com</code> 即可解决</li>
-</ol>
-<h4 id="安卓包配置问题"><a href="#安卓包配置问题" class="headerlink" title="安卓包配置问题"></a>安卓包配置问题</h4><p>一般格式为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Could not HEAD **</span><br><span class="line">Could not Get **</span><br></pre></td></tr></table></figure>
-<p>如：<code>Android Studio Could not GET gradle-3.2.0.pom</code></p>
-<p>这一类问题是由于无法连接到 Maven 库造成的，解决方法如下：</p>
-<ol>
-<li><p>进入<code>当前所在项目名/android</code></p>
-</li>
-<li><p>打开 <code>build.gradle</code> </p>
-</li>
-<li><p>找到下面这一部分，并加上 <code>maven { url &#39;http://maven.aliyun.com/nexus/content/groups/public/&#39; }</code> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">      google()</span><br><span class="line">      jcenter()</span><br><span class="line">      maven &#123; url &apos;http://maven.aliyun.com/nexus/content/groups/public/&apos; &#125; //添加这一句</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>进入 File/ Settings/ Build, Execution, Deployment/ BuildTools/ Gradle/ Android Studio 中，勾选上 Enable embedded Maven repository ，重启 Android Studio 即可解决。</p>
-<blockquote>
-<p><strong>注意：</strong>存在这样的一种情况，当你根据上述步骤设置了之后，依旧无法解决这个问题，并有类似于 <code>Could not HEAD maven.aliyun.com</code> 的报错信息，请检查 <code>C:\Users\{user_name}\.gradle\gradle.properties</code> 是否有设置代理。删除后问题即可解决。</p>
-</blockquote>
-</li>
-</ol>
+        <h2 id="单选开关和复选框"><a href="#单选开关和复选框" class="headerlink" title="单选开关和复选框"></a>单选开关和复选框</h2><p>Material widgets库中提供了Material风格的单选开关Switch和复选框Checkbox，它们都是继承自StatelessWidget，所以它们本身不会保存当前选择状态，所以一般都是在父widget中管理选中状态。当用户点击Switch或Checkbox时，它们会触发onChanged回调，我们可以在此回调中处理选中状态改变逻辑。我们看一个简单的示例：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SwitchAndCheckBoxTestRoute</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _SwitchAndCheckBoxTestRouteState createState() =&gt; <span class="keyword">new</span> _SwitchAndCheckBoxTestRouteState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_SwitchAndCheckBoxTestRouteState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">SwitchAndCheckBoxTestRoute</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">bool</span> _switchSelected=<span class="keyword">true</span>; <span class="comment">//维护单选开关状态</span></span><br><span class="line">  <span class="built_in">bool</span> _checkboxSelected=<span class="keyword">true</span>;<span class="comment">//维护复选框状态</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Column(</span><br><span class="line">      children: &lt;Widget&gt;[</span><br><span class="line">        Switch(</span><br><span class="line">          value: _switchSelected,<span class="comment">//当前状态</span></span><br><span class="line">          onChanged:(value)&#123;</span><br><span class="line">            <span class="comment">//重新构建页面  </span></span><br><span class="line">            setState(() &#123;</span><br><span class="line">              _switchSelected=value;</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;,</span><br><span class="line">        ),</span><br><span class="line">        Checkbox(</span><br><span class="line">          value: _checkboxSelected,</span><br><span class="line">          activeColor: Colors.red, <span class="comment">//选中时的颜色</span></span><br><span class="line">          onChanged:(value)&#123;</span><br><span class="line">            setState(() &#123;</span><br><span class="line">              _checkboxSelected=value;</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125; ,</span><br><span class="line">        )</span><br><span class="line">      ],</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码中，由于要维护Switch和Checkbox状态，所以SwitchAndCheckBoxTestRoute继承自StatefulWidget 。在其build方法中分别构建了一个Switch和Checkbox，初始状态都为选中状态，当用户点击时，会将状态置反，然后回调用<code>setState()</code>通知framework重新构建UI。</p>
+<h3 id="属性及外观"><a href="#属性及外观" class="headerlink" title="属性及外观"></a>属性及外观</h3><p>Switch和Checkbox属性比较简单，读者可以查看API文档，它们都有一个activeColor属性，用于设置激活态的颜色。至于大小，到目前为止，Checkbox的大小是固定的，无法自定义，而Switch只能定义宽度，高度也是固定的。值得一提的是Checkbox有一个属性<code>tristate</code> ，表示是否为三态，其默认值为<code>false</code> ，这时Checkbox有两种状态即“选中”和“不选中”，对应的value值为<code>true</code>和<code>false</code> ；如果其值为<code>true</code>时，value的值会增加一个状态<code>null</code>，读者可以自行了解。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过Switch和Checkbox我们可以看到，虽然它们本身是与状态（是否选中）关联的，但它们却不是自己来维护状态，而是需要父widget来管理状态，然后当用户点击时，再通过事件通知给父widget，这样是合理的，因为Switch和Checkbox是否选中本就和用户数据关联，而这些用户数据也不可能是它们的私有状态。我们在自定义widget时也应该思考一下哪种状态的管理方式最为合理。</p>
 
       
     </div>
@@ -527,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/03/flutter-chapter1-03install_flutter/" rel="next" title="第一章 - 03安装Flutter">
-                <i class="fa fa-chevron-left"></i> 第一章 - 03安装Flutter
+              <a href="/2019/02/15/flutter-chapter3-04img_and_icon/" rel="next" title="第三章 - 04图片及ICON">
+                <i class="fa fa-chevron-left"></i> 第三章 - 04图片及ICON
               </a>
             
           </div>
@@ -537,8 +508,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/05/flutter-chapter1-05dart/" rel="prev" title="第一章 - 05Dart语言简介">
-                第一章 - 05Dart语言简介 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/17/flutter-chapter3-06input_and_form/" rel="prev" title="第三章 - 06输入框及表单">
+                第三章 - 06输入框及表单 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -705,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见配置问题"><span class="nav-number">1.</span> <span class="nav-text">常见配置问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Studio问题"><span class="nav-number">1.1.</span> <span class="nav-text">Android Studio问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缺少依赖库问题"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">缺少依赖库问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接不上Android-Repository"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">连接不上Android Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安卓包配置问题"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">安卓包配置问题</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单选开关和复选框"><span class="nav-number">1.</span> <span class="nav-text">单选开关和复选框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性及外观"><span class="nav-number">1.1.</span> <span class="nav-text">属性及外观</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.2.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
