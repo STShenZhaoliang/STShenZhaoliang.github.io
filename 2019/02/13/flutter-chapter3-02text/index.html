@@ -109,7 +109,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829111601391.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829114929736.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/flutterchina/flutter-in-action@1.0/docs/imgs/image-20180829135406156.png">
-<meta property="og:updated_time" content="2019-04-13T08:33:07.060Z">
+<meta property="og:updated_time" content="2019-04-18T09:19:11.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三章 - 02文本及样式">
 <meta name="twitter:description" content="文本及样式TextText用于显示简单样式文本，它包含一些控制文本显示样式的一些属性，一个简单的例子如下： 123456789101112Text(&quot;Hello world&quot;,  textAlign: TextAlign.center,);Text(&quot;Hello world! I&apos;m Jack. &quot;*4,  maxLines: 1,  overflow: TextOverflow.ellipsis">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-13 16:33:07" itemprop="dateModified" datetime="2019-04-13T16:33:07+08:00">2019-04-13</time>
+                <time title="Modified: 2019-04-18 17:19:11" itemprop="dateModified" datetime="2019-04-18T17:19:11+08:00">2019-04-18</time>
               
             
           </span>
@@ -525,6 +525,10 @@
 <p><code>lib/</code>是隐含的，所以它不应该包含在asset路径中。</p>
 <p>在这种情况下，由于应用程序本地定义了字体，所以在创建TextStyle时可以不指定<code>package</code>参数：</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> textStyle = <span class="keyword">const</span> TextStyle(</span><br><span class="line">  fontFamily: <span class="string">'Raleway'</span>,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>、、、</p>
+<p>const Text(<br>    this.data,          //Text显示的内容<br>  {<br>    Key key,<br>    this.style,         //Text显示的样式<br>    this.strutStyle,<br>    this.textAlign,     //文本应该如何水平对齐,TextAlign.start,end 或者center<br>    this.textDirection, //文本方向,TextDirection.ltr\TextDirection.rtl<br>    this.locale,<br>    this.softWrap,      //是否自动换行，若为false，文字将不考虑容器大小，单行显示，超出屏幕部分将默认截断处理<br>    this.overflow,      //当文字超出屏幕的时候，如何处理,TextOverflow.clip(裁剪)\TextOverflow.fade(渐隐)\TextOverflow.ellipsis(省略号)<br>    this.textScaleFactor, //字体显示倍率，上面的例子使用的字体大小是20.0，将字体设置成10.0，然后倍率为2<br>    this.maxLines,        //最大行数设置<br>    this.semanticsLabel,<br>  })</p>
+<p>  const Text(this.data, {  //Text显示的内容<br>Key key,<br>this.style, //Text显示的样式<br>this.textAlign,//文本应该如何水平对齐,TextAlign.start,end 或者center<br>this.textDirection, //文本方向,TextDirection.ltr\TextDirection.rtl<br>this.locale,<br>this.softWrap,  //是否自动换行，若为false，文字将不考虑容器大小，单行显示，超出屏幕部分将默认截断处理<br>this.overflow, //当文字超出屏幕的时候，如何处理,TextOverflow.clip(裁剪)\TextOverflow.fade(渐隐)\TextOverflow.ellipsis(省略号)<br>this.textScaleFactor, //字体显示倍率，上面的例子使用的字体大小是20.0，将字体设置成10.0，然后倍率为2<br>this.maxLines, //最大行数设置<br>this.semanticsLabel,<br>})</p>
+<p>  、、、</p>
 
       
     </div>
@@ -644,7 +648,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -665,7 +669,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -686,7 +692,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
