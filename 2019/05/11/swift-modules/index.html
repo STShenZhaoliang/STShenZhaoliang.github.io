@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
+<meta name="keywords" content="ios">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Swift的模块化开发实践方案">
+<meta property="og:url" content="https://stshenzhaoliang.github.io/2019/05/11/swift-modules/index.html">
+<meta property="og:site_name" content="小沈曰">
+<meta property="og:description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://stshenzhaoliang.github.io/2019/05/11/swift-modules/swiftmodule0.png">
+<meta property="og:updated_time" content="2019-05-10T17:48:24.721Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Swift的模块化开发实践方案">
+<meta name="twitter:description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
+<meta name="twitter:image" content="https://stshenzhaoliang.github.io/2019/05/11/swift-modules/swiftmodule0.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://stshenzhaoliang.github.io/2019/05/11/swift-modules/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>基于Swift的模块化开发实践方案 | 小沈曰</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小沈曰</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">自由不是你想做什么就做什么，而是你不想做什么就可以不做什么。</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://stshenzhaoliang.github.io/2019/05/11/swift-modules/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="st">
+      <meta itemprop="description" content="人生滋味，情最浓；世间繁华，淡最真。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沈曰">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于Swift的模块化开发实践方案
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-11 01:46:33 / Modified: 01:48:24" itemprop="dateCreated datePublished" datetime="2019-05-11T01:46:33+08:00">2019-05-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ios/" itemprop="url" rel="index"><span itemprop="name">ios</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>前言：</strong></p>
+<p>本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。</p>
+<h2 id="一、为什么要做模块化"><a href="#一、为什么要做模块化" class="headerlink" title="一、为什么要做模块化"></a>一、为什么要做模块化</h2><p>程序猿都知道最基本的代码设计原则<code>DRY（Don&#39;t Repeat Yourself）</code>。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码的复用。但是每个人都有自己的封装，如果把这个文件统一放到一处，其他开发人员直接引用，可以更快捷的开发，更好的共享资源，避免重复造轮子。</p>
+<h2 id="二、模块设计原则"><a href="#二、模块设计原则" class="headerlink" title="二、模块设计原则"></a>二、模块设计原则</h2><ol>
+<li>模块层级，<code>从上到下依赖原则</code>，决不能出现下层模块依赖上层模块</li>
+<li>每个模块业务独立，功能明确</li>
+<li>底层模块，接口稳定性高，功能高度复用，例如网络请求模块</li>
+<li>提升模块复用度、自完备性</li>
+</ol>
+<h2 id="三、模块化开发优缺点"><a href="#三、模块化开发优缺点" class="headerlink" title="三、模块化开发优缺点"></a>三、模块化开发优缺点</h2><p>优点：</p>
+<ol>
+<li>提高代码的复用度，还可以实现真正的功能复用，比如同样的功能模块如果实现了自完备性，可以在多个app中复用 </li>
+<li>业务隔离，对不同的业务模块可以进行物理隔离（通过 git 仓库权限控制），进一步提升代码的稳定性。</li>
+<li>模块化对代码的封装性、合理性都有一定的要求，提升开发同学的设计能力。</li>
+<li>Swift语法版本升级，可以单个模块单独语言升级，无需整个项目语法升级完成后才可以编译</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>入门门槛较高，新手入门需要的成本也更高 </li>
+<li>工具的使用成本，团队间和模块间的配合成本升高</li>
+</ol>
+<h2 id="四、实践步骤"><a href="#四、实践步骤" class="headerlink" title="四、实践步骤"></a>四、实践步骤</h2><h3 id="4-1-层级划分设计"><a href="#4-1-层级划分设计" class="headerlink" title="4.1 层级划分设计"></a>4.1 层级划分设计</h3><p>当我们确定需要对项目进行模块化了，我们第一个要解决的问题就是如何拆分模块。这是一个见仁见智的问题，没有太明确的划分边界，大致做到每个模块只包含一个功能即可，具体实施还是要根据实际情况权衡。</p>
+<p>当我们写一个类的时候，我们会谨记高内聚，低耦合的原则去设计这个类，当涉及多个类之间交互的时候，我们也会运用SOLID原则，或者已有的设计模式去优化设计，但在实现完整的业务模块的时候，我们很容易忘记对这个模块去做设计上的思考，粒度越大，越难做出精细稳定的设计，我暂且把这个粒度认为是组件的粒度。</p>
+<p>模块可以是个广义上的概念，并不一定是页面跳转，还可以是其他不具备UI属性的服务提供者，比如日志服务，内存管理服务等等。说白了我们目标是站在更高的维度去封装功能单元，把多个功能单元组合在一起形成一个更大的功能单元，也就是组件。对这些功能单元进行进一步的分类，才能在具体的业务场景下做更合理的设计。</p>
+<p>下面的模块化层次划分，大家可以借鉴一下</p>
+<p><img src="/2019/05/11/swift-modules/swiftmodule0.png" alt></p>
+<p>最大的粒度是什么，就是一个完整的app,如何将多个APP集成，可以参照<a href="https://github.com/STShenZhaoliang/Framework-iOSAPP" target="_blank" rel="noopener">基于静态库的多app集成解决方案</a></p>
+<h3 id="4-2-业务模块解耦方案选型"><a href="#4-2-业务模块解耦方案选型" class="headerlink" title="4.2 业务模块解耦方案选型"></a>4.2 业务模块解耦方案选型</h3><p>iOS业内业务模块解耦方式主要有三个方式</p>
+<ol>
+<li>URL Router</li>
+<li>Target Action</li>
+<li>Protocol Class</li>
+</ol>
+<h4 id="4-2-1-URLRouter"><a href="#4-2-1-URLRouter" class="headerlink" title="4.2.1 URLRouter"></a>4.2.1 URLRouter</h4><p>URLRouter可以参考开源界比较成熟的方案MGJRouter、JLRouter、HHRouter，把每一个模块以一个URL的形式作为独立存在的界限范围。URLRouter需要在内存中维护一张URL表作为key来实现对应的push或者唤起对应的模块。类似get方式的openURl它在传递参数过程中不能传递类似于对象这样的数据，只能传递普通类型数据。<br>例：<br>a. 注册</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[MGJRouter registerURLPattern:@&quot;mgj://detail&quot; toHandler:^(NSDictionary *routerParameters) &#123;</span><br><span class="line">    // create view controller with id</span><br><span class="line">    // push view controller</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>b.远程调用方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[MGJRouter openUrl:&quot;mgj://detail?id=123&amp;type=0&quot;];</span><br></pre></td></tr></table></figure>
+<p>c.本地调用方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[MGJRouter openUrl:&quot;mgj://detail&quot; params:@&#123;</span><br><span class="line">    @&quot;id&quot;:&quot;123&quot;,</span><br><span class="line">    @&quot;type&quot;:&quot;0&quot;,</span><br><span class="line">    @&quot;image&quot;:[UIImage imageNamed:@&quot;test&quot;]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-2-Target-Action"><a href="#4-2-2-Target-Action" class="headerlink" title="4.2.2 Target Action"></a>4.2.2 Target Action</h4><p>TargetAction也是基于苹果原生的Runtime的优势，其优势很大在于可以做到无需加载内存，并且在调用中没有相关的依赖。在调用中的缺陷在于只有在运行池中才可以知道对应的组件是否存在，若不存在会造成对应的Crash。另外代码中会出现HardCode,代码变得晦涩难懂，调用其他模块方法没有提示。使用CTMediator 分类的方式解决调用提示问题也有点重复造轮子的意思。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[[CTMediator sharedInstance] performTarget:targetName action:actionName params:@&#123;...&#125;]</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-3-Protocol-class"><a href="#4-2-3-Protocol-class" class="headerlink" title="4.2.3 Protocol class"></a>4.2.3 Protocol class</h4><p>Protocolclass是利用原始class以及对应的Protocol用到的Serviceinterface去进行实现以及接口的分离，让大部分的业务方只需要基于Protocol的interface进行调用。缺点是其过程中会涉及到内存占用的问题，另外调用方和响应方都必须依赖于同一个service协议文件，每个service协议需单独一个库，pod库数量大量增加。</p>
+<p>a. 注册</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[BeeHive shareInstance] registerService:@protocol(HomeServiceProtocol) service:[BHViewController class]];</span><br></pre></td></tr></table></figure>
+<p>b. 使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;BHService.h&quot;</span><br><span class="line"></span><br><span class="line">id&lt; HomeServiceProtocol &gt; homeVc = [[BeeHive shareInstance] createService:@protocol(HomeServiceProtocol)];</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-2-4-方案选择"><a href="#4-2-4-方案选择" class="headerlink" title="4.2.4 方案选择"></a>4.2.4 方案选择</h4><p>每个方案都有各自优缺点，都能解决模块化的解耦问题。但是现在针对swift的模块化开发，建议采用面向协议调用的URLRouter方式。<br>通过定义一套协议来实现模块间的通信，协议现成的，那就是URL跳转协议，基本满足需要，简单易上手，基本上现在很多的App架构里面都会有“统一跳转” 这一套东西的，这个不光是对模块解耦有帮助，对于统一化运营都是有极好的帮助的，比如app里面的任何页面，或者任何操作都是通过一个URL来唤起的话，这样是不是就把各个复杂的业务之间解耦了呢，通信都使用URL.</p>
+<h3 id="4-2-5-面向协议调用"><a href="#4-2-5-面向协议调用" class="headerlink" title="4.2.5 面向协议调用"></a>4.2.5 面向协议调用</h3><p>面向协议调用的URLRouter方式设计基于<a href="https://github.com/devxoul/URLNavigator" target="_blank" rel="noopener">URLNavigator</a> ，组成结构见下：</p>
+<ol>
+<li>协议类型, 用于跳转的urlSchemes，例如：stapp</li>
+<li>路径，用于跳转指定模块的指定界面，例如：/exam/chapter</li>
+<li>参数，用于跳转的参数传递，需要说明参数是否必填与说明</li>
+</ol>
+<p>路由案例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stapp://exam/chapter?examid=e3d2</span><br></pre></td></tr></table></figure>
+<p>参数案例：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>是否必填</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>examid</td>
+<td>是</td>
+<td>试题id</td>
+</tr>
+</tbody>
+</table>
+<p>a. 注册</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@UIApplicationMain</span></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span>, <span class="title">UIApplicationDelegate</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> application: UIApplication,</span></span></span><br><span class="line"><span class="function"><span class="params">    didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: <span class="keyword">Any</span>]?</span></span></span><br><span class="line"><span class="function"><span class="params">  )</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="comment">// Navigator</span></span><br><span class="line">    <span class="type">URLNavigationMap</span>.initialize(navigator: navigator)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Do something else...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>b. 声明协议</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">URLNavigationMap</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">(navigator: NavigatorType)</span></span> &#123;</span><br><span class="line">    navigator.register(<span class="string">"myapp://user/&lt;int:id&gt;"</span>) &#123; ... &#125;</span><br><span class="line">    navigator.register(<span class="string">"myapp://post/&lt;title&gt;"</span>) &#123; ... &#125;</span><br><span class="line">    navigator.handle(<span class="string">"myapp://alert"</span>) &#123; ... &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>c. 使用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> context: [<span class="type">AnyHashable</span>: <span class="type">Any</span>] = [</span><br><span class="line">  <span class="string">"fromViewController"</span>: <span class="keyword">self</span></span><br><span class="line">]</span><br><span class="line"><span class="type">Navigator</span>.push(<span class="string">"myapp://user/10"</span>, context: context)</span><br><span class="line"><span class="type">Navigator</span>.present(<span class="string">"myapp://user/10"</span>, context: context)</span><br><span class="line"><span class="type">Navigator</span>.<span class="keyword">open</span>(<span class="string">"myapp://alert?title=Hi"</span>, context: context)</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-模块接口设计（待完善）"><a href="#4-3-模块接口设计（待完善）" class="headerlink" title="4.3 模块接口设计（待完善）"></a>4.3 模块接口设计（待完善）</h3><p>基础接口设计标准采用苹果官方的接口设计标准，下面主要是业务模块的几个接口：</p>
+<ol>
+<li>register() 路由注册，用于模块界面跳转，必须添加在AppDelegate-didFinishLaunchingWithOptions方法中</li>
+<li>rootViewController() 根视图，用于模块根视图的初始化</li>
+</ol>
+<h3 id="4-4-模块代码设计"><a href="#4-4-模块代码设计" class="headerlink" title="4.4 模块代码设计"></a>4.4 模块代码设计</h3><p>业务模块采用MVVM，其他组件可以采用MVC、MVP等，基础组件的接口建议采用苹果官方的接口设计方案。</p>
+<h2 id="4-4-1-架构模式-MVVM"><a href="#4-4-1-架构模式-MVVM" class="headerlink" title="4.4.1 架构模式 - MVVM"></a>4.4.1 架构模式 - MVVM</h2><ol>
+<li>低耦合。视图（View）可以独立于Model变化和修改，一个ViewModel可以绑定到不同的”View”上，当View变化的时候Model可以不变，当Model变化的时候View也可以不变。</li>
+<li>可重用性。把一些视图逻辑放在一个ViewModel里面，让很多view重用这段视图逻辑。</li>
+<li>独立开发。开发人员可以专注于业务逻辑和数据的开发（ViewModel）。</li>
+<li>可测试。测试可以针对ViewModel来写。</li>
+</ol>
+<h2 id="4-4-2-Model-纯Model"><a href="#4-4-2-Model-纯Model" class="headerlink" title="4.4.2 Model - 纯Model"></a>4.4.2 Model - 纯Model</h2><p>字段名称与属性<code>完全对应</code>服务端接口名称与属性<br>示例代码见下:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.样例Demo</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">STDemoModel</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// 1.分类ID</span></span><br><span class="line">    <span class="keyword">var</span> <span class="type">CatalogId</span>:<span class="type">Int?</span> = <span class="number">0</span></span><br><span class="line">    <span class="comment">/// 2.分类名称</span></span><br><span class="line">    <span class="keyword">var</span> <span class="type">CatalogName</span>:<span class="type">String?</span> = <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-4-3-View-与-Controller-五层结构规范"><a href="#4-4-3-View-与-Controller-五层结构规范" class="headerlink" title="4.4.3 View 与 Controller - 五层结构规范"></a>4.4.3 View 与 Controller - 五层结构规范</h2><p>制定View与Controller规范的重要性在于：</p>
+<ol>
+<li>提高业务View与Controller层的可读性和可维护性</li>
+<li>防止业务代码对架构产生腐蚀</li>
+<li>保持架构可持续发展，不受外界干扰</li>
+<li>结构的稳定性，确保传承</li>
+</ol>
+<p>五层结构如下</p>
+<ol>
+<li>lift cycle,方法按照生命周期<code>依次排序</code></li>
+<li>private methods 系统私有方法、封装方法</li>
+<li>event response 事件交互方法、网络数据获取方法</li>
+<li>interface 对外与对内的接口,内部接口必须使用private修饰</li>
+<li>getter 界面元素的初始化方法，<code>必须私有不对外开放</code>，统一添加修饰 <code>private lazy var</code></li>
+</ol>
+<p>示例代码见下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 样例Cell</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">STDemoCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// MARK: 1.lift cycle</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">st_setupUI</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.st_setupUI()</span><br><span class="line">        contentView.backgroundColor = <span class="type">STColor</span>.tableBG</span><br><span class="line">    </span><br><span class="line">        imageEdit.snp.makeConstraints &#123; (maker) <span class="keyword">in</span></span><br><span class="line">            maker.height.width.equalTo(<span class="number">49</span>)</span><br><span class="line">            maker.<span class="keyword">right</span>.equalTo(-<span class="number">22</span>)</span><br><span class="line">            maker.top.equalTo(<span class="number">24</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        labelTitle.snp.makeConstraints &#123; (maker) <span class="keyword">in</span></span><br><span class="line">            maker.<span class="keyword">left</span>.equalTo(<span class="number">14</span>)</span><br><span class="line">            maker.<span class="keyword">right</span>.equalTo(imageEdit.snp.<span class="keyword">left</span>).offset(-<span class="number">14</span>)</span><br><span class="line">            maker.top.equalTo(<span class="number">16</span>)</span><br><span class="line">            maker.height.equalTo(<span class="number">38</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// MARK: 2.private methods</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// MARK: 3.event response</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// MARK: 4.interface</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> modelVM: <span class="type">STDemoVM!</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span>&#123;</span><br><span class="line">            labelTitle.text = modelVM.title</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// MARK: 5.getter</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> imageEdit: <span class="type">UIImageView</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> imageEdit = <span class="type">UIImageView</span>()</span><br><span class="line">        imageEdit.image = <span class="type">UIImage</span>.image(named: <span class="string">"icon_begin"</span>)</span><br><span class="line">        contentView.addSubview(imageEdit)</span><br><span class="line">        <span class="keyword">return</span> imageEdit</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> labelTitle: <span class="type">UILabel</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> labelTitle = <span class="type">UILabel</span>()</span><br><span class="line">        labelTitle.textColor = <span class="type">STColor</span>.textBlack</span><br><span class="line">        labelTitle.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">14</span>, weight: <span class="type">UIFont</span>.<span class="type">Weight</span>.light)</span><br><span class="line">        labelTitle.numberOfLines = <span class="number">2</span></span><br><span class="line">        contentView.addSubview(labelTitle)</span><br><span class="line">        <span class="keyword">return</span> labelTitle</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a>五、常见问题</h2><h3 id="5-1-如何合理的模块业务分离"><a href="#5-1-如何合理的模块业务分离" class="headerlink" title="5.1 如何合理的模块业务分离"></a>5.1 如何合理的模块业务分离</h3><p>首先保证业务模块的独立性，如果使用其他模块业务，最好使用协议路由调用。如果调用的功能没有做成模块，可以在现有的主工程中将使用功能进行路由注册。</p>
+<h3 id="5-2-模块如何资源导入"><a href="#5-2-模块如何资源导入" class="headerlink" title="5.2 模块如何资源导入"></a>5.2 模块如何资源导入</h3><ol>
+<li>针对底层组件与基础组件，建议使用bundle方式引入，可以参照MJRefresh中bundle的使用方式。</li>
+<li>业务模块资源较多，建议使用Assets方式引入，可以参照PKHUD的资源使用</li>
+</ol>
+<h3 id="5-3-使用到objective-c语言的功能代码，如何处理"><a href="#5-3-使用到objective-c语言的功能代码，如何处理" class="headerlink" title="5.3 使用到objective-c语言的功能代码，如何处理"></a>5.3 使用到objective-c语言的功能代码，如何处理</h3><ol>
+<li>如果是功能代码相对独立，建议单独封装成一个组件</li>
+<li>如果功能代码可以被Swift所取代，建议改写为Swift功能代码</li>
+</ol>
+<h3 id="5-4-第三方的静态库，如果下潜"><a href="#5-4-第三方的静态库，如果下潜" class="headerlink" title="5.4 第三方的静态库，如果下潜"></a>5.4 第三方的静态库，如果下潜</h3><ol>
+<li>如果是Swift的静态库，可以在podspec添加vendored_libraries指定静态库</li>
+<li>如果是objective-c的第三方静态库，首先制作成objective-c的组件，然后去引用</li>
+</ol>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>上面讲解主要是完成了模块化的解耦与实现，便于模块化的测试与开发。为之后模块化的性能优化、lint、CI/CD、A/BTest打下基础。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">iOS应用架构谈 组件化方案</a><br><a href="https://github.com/STShenZhaoliang/Framework-iOSAPP" target="_blank" rel="noopener">详细的静态库打包APP的方案</a><br><a href="https://limboy.me/tech/2016/03/10/mgj-components.html" target="_blank" rel="noopener">蘑菇街 App 的组件化之路</a><br><a href="https://github.com/devxoul/URLNavigator" target="_blank" rel="noopener">URLNavigator</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ios/" rel="tag"># ios</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/08/cocoapods-setup/" rel="next" title="三步安装完成Cocoapods">
+                <i class="fa fa-chevron-left"></i> 三步安装完成Cocoapods
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="st">
+            
+              <p class="site-author-name" itemprop="name">st</p>
+              <div class="site-description motion-element" itemprop="description">人生滋味，情最浓；世间繁华，淡最真。</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/STShenZhaoliang" title="GitHub &rarr; https://github.com/STShenZhaoliang" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、为什么要做模块化"><span class="nav-number">1.</span> <span class="nav-text">一、为什么要做模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、模块设计原则"><span class="nav-number">2.</span> <span class="nav-text">二、模块设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、模块化开发优缺点"><span class="nav-number">3.</span> <span class="nav-text">三、模块化开发优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实践步骤"><span class="nav-number">4.</span> <span class="nav-text">四、实践步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-层级划分设计"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 层级划分设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-业务模块解耦方案选型"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 业务模块解耦方案选型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-URLRouter"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 URLRouter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-Target-Action"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 Target Action</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-Protocol-class"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 Protocol class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-方案选择"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 方案选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-面向协议调用"><span class="nav-number">4.3.</span> <span class="nav-text">4.2.5 面向协议调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-模块接口设计（待完善）"><span class="nav-number">4.4.</span> <span class="nav-text">4.3 模块接口设计（待完善）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-模块代码设计"><span class="nav-number">4.5.</span> <span class="nav-text">4.4 模块代码设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-1-架构模式-MVVM"><span class="nav-number">5.</span> <span class="nav-text">4.4.1 架构模式 - MVVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-2-Model-纯Model"><span class="nav-number">6.</span> <span class="nav-text">4.4.2 Model - 纯Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-3-View-与-Controller-五层结构规范"><span class="nav-number">7.</span> <span class="nav-text">4.4.3 View 与 Controller - 五层结构规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、常见问题"><span class="nav-number">8.</span> <span class="nav-text">五、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-如何合理的模块业务分离"><span class="nav-number">8.1.</span> <span class="nav-text">5.1 如何合理的模块业务分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-模块如何资源导入"><span class="nav-number">8.2.</span> <span class="nav-text">5.2 模块如何资源导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-使用到objective-c语言的功能代码，如何处理"><span class="nav-number">8.3.</span> <span class="nav-text">5.3 使用到objective-c语言的功能代码，如何处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-第三方的静态库，如果下潜"><span class="nav-number">8.4.</span> <span class="nav-text">5.4 第三方的静态库，如果下潜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、总结"><span class="nav-number">9.</span> <span class="nav-text">六、总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">10.</span> <span class="nav-text">参考：</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">st</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
