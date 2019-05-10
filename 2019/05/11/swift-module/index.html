@@ -104,12 +104,12 @@
 <meta property="og:site_name" content="小沈曰">
 <meta property="og:description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://stshenzhaoliang.github.io/2019/05/public/images/swiftmodule0.png">
-<meta property="og:updated_time" content="2019-05-10T17:28:11.784Z">
+<meta property="og:image" content="https://stshenzhaoliang.github.io/2019/05/11/swift-module/images/swiftmodule0.png">
+<meta property="og:updated_time" content="2019-05-10T17:39:33.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Swift的模块化开发实践方案">
 <meta name="twitter:description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
-<meta name="twitter:image" content="https://stshenzhaoliang.github.io/2019/05/public/images/swiftmodule0.png">
+<meta name="twitter:image" content="https://stshenzhaoliang.github.io/2019/05/11/swift-module/images/swiftmodule0.png">
 
 
 
@@ -390,7 +390,7 @@
                 
               
 
-              <time title="Created: 2019-05-11 01:19:20 / Modified: 01:28:11" itemprop="dateCreated datePublished" datetime="2019-05-11T01:19:20+08:00">2019-05-11</time>
+              <time title="Created: 2019-05-11 01:19:20 / Modified: 01:39:33" itemprop="dateCreated datePublished" datetime="2019-05-11T01:19:20+08:00">2019-05-11</time>
             
 
             
@@ -472,7 +472,7 @@
 <p>当我们写一个类的时候，我们会谨记高内聚，低耦合的原则去设计这个类，当涉及多个类之间交互的时候，我们也会运用SOLID原则，或者已有的设计模式去优化设计，但在实现完整的业务模块的时候，我们很容易忘记对这个模块去做设计上的思考，粒度越大，越难做出精细稳定的设计，我暂且把这个粒度认为是组件的粒度。</p>
 <p>模块可以是个广义上的概念，并不一定是页面跳转，还可以是其他不具备UI属性的服务提供者，比如日志服务，内存管理服务等等。说白了我们目标是站在更高的维度去封装功能单元，把多个功能单元组合在一起形成一个更大的功能单元，也就是组件。对这些功能单元进行进一步的分类，才能在具体的业务场景下做更合理的设计。</p>
 <p>下面的模块化层次划分，大家可以借鉴一下</p>
-<p><img src="/2019/05/11/swift-module/../../public/images/swiftmodule0.png" alt></p>
+<p><img src="/2019/05/11/swift-module/images/swiftmodule0.png" alt></p>
 <p>最大的粒度是什么，就是一个完整的app,如何将多个APP集成，可以参照<a href="https://github.com/STShenZhaoliang/Framework-iOSAPP" target="_blank" rel="noopener">基于静态库的多app集成解决方案</a></p>
 <h3 id="4-2-业务模块解耦方案选型"><a href="#4-2-业务模块解耦方案选型" class="headerlink" title="4.2 业务模块解耦方案选型"></a>4.2 业务模块解耦方案选型</h3><p>iOS业内业务模块解耦方式主要有三个方式</p>
 <ol>
