@@ -460,7 +460,7 @@
 
       
         <h1 id="Dart线程模型及异常捕获"><a href="#Dart线程模型及异常捕获" class="headerlink" title="Dart线程模型及异常捕获"></a>Dart线程模型及异常捕获</h1><h2 id="Dart单线程模型"><a href="#Dart单线程模型" class="headerlink" title="Dart单线程模型"></a>Dart单线程模型</h2><p>在Java和OC中，如果程序发生异常且没有被捕获，那么程序将会终止，但在Dart或JavaScript中则不会，究其原因，这和它们的运行机制有关系，Java和OC都是多线程模型的编程语言，任意一个线程触发异常且没被捕获时，整个进程就退出了。但Dart和JavaScript不同，它们都是单线程模型，运行机制很相似(但有区别)，下面我们通过Dart官方提供的一张图来看看dart大致运行原理：</p>
-<p><img src="../imgs/both-queues.png" alt="both-queues"></p>
+<p><img src="/2019/02/11/flutter-chapter2-06thread_model_and_error_report/../imgs/both-queues.png" alt="both-queues"></p>
 <p>Dart 在单线程中是以消息循环机制来运行的，其中包含两个任务队列，一个是“微任务队列”  <strong>microtask queue</strong>，另一个叫做“事件队列” <strong>event queue</strong>。从图中可以发现，微任务队列的执行优先级高于事件队列。</p>
 <p>现在我们来介绍一下Dart线程运行过程，如上图中所示，入口函数 main() 执行完后，消息循环机制便启动了。首先会按照先进先出的顺序逐个执行微任务队列中的任务，当所有微任务队列执行完后便开始执行事件队列中的任务，事件任务执行完毕后再去执行微任务，如此循环往复，生生不息。</p>
 <p>在Dart中，所有的外部事件任务都在事件队列中，如IO、计时器、点击、以及绘制事件等，而微任务通常来源于Dart内部，并且微任务非常少，之所以如此，是因为微任务队列优先级高，如果微任务太多，执行时间总和就越久，事件队列任务的延迟也就越久，对于GUI应用来说最直观的表现就是比较卡，所以必须得保证微任务队列不会太长。值得注意的是，我们可以通过<code>Future.microtask(…)</code>方法向微任务队列插入一个任务。</p>
@@ -614,7 +614,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
