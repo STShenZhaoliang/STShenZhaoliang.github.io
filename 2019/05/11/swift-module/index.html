@@ -96,20 +96,20 @@
 
 
 
-  <meta name="description" content="基于Swift的模块化开发实践方案前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装">
+  <meta name="description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
 <meta name="keywords" content="ios">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Swift的模块化开发实践方案">
-<meta property="og:url" content="http://yoursite.com/2019/05/11/swift-module/index.html">
+<meta property="og:url" content="https://stshenzhaoliang.github.io/2019/05/11/swift-module/index.html">
 <meta property="og:site_name" content="小沈曰">
-<meta property="og:description" content="基于Swift的模块化开发实践方案前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装">
+<meta property="og:description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/05/public/images/swiftmodule0.png">
-<meta property="og:updated_time" content="2019-05-10T17:19:30.395Z">
+<meta property="og:image" content="https://stshenzhaoliang.github.io/2019/05/public/images/swiftmodule0.png">
+<meta property="og:updated_time" content="2019-05-10T17:28:11.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Swift的模块化开发实践方案">
-<meta name="twitter:description" content="基于Swift的模块化开发实践方案前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/public/images/swiftmodule0.png">
+<meta name="twitter:description" content="前言： 本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。 一、为什么要做模块化程序猿都知道最基本的代码设计原则DRY（Don&amp;#39;t Repeat Yourself）。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码">
+<meta name="twitter:image" content="https://stshenzhaoliang.github.io/2019/05/public/images/swiftmodule0.png">
 
 
 
@@ -117,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/11/swift-module/">
+  <link rel="canonical" href="https://stshenzhaoliang.github.io/2019/05/11/swift-module/">
 
 
 
@@ -347,7 +347,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/swift-module/">
+    <link itemprop="mainEntityOfPage" href="https://stshenzhaoliang.github.io/2019/05/11/swift-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="st">
@@ -390,7 +390,7 @@
                 
               
 
-              <time title="Created: 2019-05-11 01:19:20 / Modified: 01:19:30" itemprop="dateCreated datePublished" datetime="2019-05-11T01:19:20+08:00">2019-05-11</time>
+              <time title="Created: 2019-05-11 01:19:20 / Modified: 01:28:11" itemprop="dateCreated datePublished" datetime="2019-05-11T01:19:20+08:00">2019-05-11</time>
             
 
             
@@ -447,7 +447,7 @@
       
 
       
-        <h1 id="基于Swift的模块化开发实践方案"><a href="#基于Swift的模块化开发实践方案" class="headerlink" title="基于Swift的模块化开发实践方案"></a>基于Swift的模块化开发实践方案</h1><p><strong>前言：</strong></p>
+        <p><strong>前言：</strong></p>
 <p>本文主要讲解了在使用Swift开发过程中，模块化工程架构的使用方式，主要采用Cocoapods的方式的模块化方案，详细讲解iOS开发如何进行模块化划分与相关问题。</p>
 <h2 id="一、为什么要做模块化"><a href="#一、为什么要做模块化" class="headerlink" title="一、为什么要做模块化"></a>一、为什么要做模块化</h2><p>程序猿都知道最基本的代码设计原则<code>DRY（Don&#39;t Repeat Yourself）</code>。每一个工程都会自己的封装代码与架构设计，当你写几天代码后，会把常用的重复代码封装起来单独放到一个文件夹中，实现代码的复用。但是每个人都有自己的封装，如果把这个文件统一放到一处，其他开发人员直接引用，可以更快捷的开发，更好的共享资源，避免重复造轮子。</p>
 <h2 id="二、模块设计原则"><a href="#二、模块设计原则" class="headerlink" title="二、模块设计原则"></a>二、模块设计原则</h2><ol>
@@ -784,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于Swift的模块化开发实践方案"><span class="nav-number">1.</span> <span class="nav-text">基于Swift的模块化开发实践方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、为什么要做模块化"><span class="nav-number">1.1.</span> <span class="nav-text">一、为什么要做模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、模块设计原则"><span class="nav-number">1.2.</span> <span class="nav-text">二、模块设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、模块化开发优缺点"><span class="nav-number">1.3.</span> <span class="nav-text">三、模块化开发优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实践步骤"><span class="nav-number">1.4.</span> <span class="nav-text">四、实践步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-层级划分设计"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 层级划分设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-业务模块解耦方案选型"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 业务模块解耦方案选型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-URLRouter"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">4.2.1 URLRouter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-Target-Action"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">4.2.2 Target Action</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-Protocol-class"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">4.2.3 Protocol class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-方案选择"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">4.2.4 方案选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-面向协议调用"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.2.5 面向协议调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-模块接口设计（待完善）"><span class="nav-number">1.4.4.</span> <span class="nav-text">4.3 模块接口设计（待完善）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-模块代码设计"><span class="nav-number">1.4.5.</span> <span class="nav-text">4.4 模块代码设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-1-架构模式-MVVM"><span class="nav-number">1.5.</span> <span class="nav-text">4.4.1 架构模式 - MVVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-2-Model-纯Model"><span class="nav-number">1.6.</span> <span class="nav-text">4.4.2 Model - 纯Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-3-View-与-Controller-五层结构规范"><span class="nav-number">1.7.</span> <span class="nav-text">4.4.3 View 与 Controller - 五层结构规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、常见问题"><span class="nav-number">1.8.</span> <span class="nav-text">五、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-如何合理的模块业务分离"><span class="nav-number">1.8.1.</span> <span class="nav-text">5.1 如何合理的模块业务分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-模块如何资源导入"><span class="nav-number">1.8.2.</span> <span class="nav-text">5.2 模块如何资源导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-使用到objective-c语言的功能代码，如何处理"><span class="nav-number">1.8.3.</span> <span class="nav-text">5.3 使用到objective-c语言的功能代码，如何处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-第三方的静态库，如果下潜"><span class="nav-number">1.8.4.</span> <span class="nav-text">5.4 第三方的静态库，如果下潜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、总结"><span class="nav-number">1.9.</span> <span class="nav-text">六、总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">1.10.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、为什么要做模块化"><span class="nav-number">1.</span> <span class="nav-text">一、为什么要做模块化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、模块设计原则"><span class="nav-number">2.</span> <span class="nav-text">二、模块设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、模块化开发优缺点"><span class="nav-number">3.</span> <span class="nav-text">三、模块化开发优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实践步骤"><span class="nav-number">4.</span> <span class="nav-text">四、实践步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-层级划分设计"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 层级划分设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-业务模块解耦方案选型"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 业务模块解耦方案选型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-URLRouter"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 URLRouter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-Target-Action"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 Target Action</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-Protocol-class"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 Protocol class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-方案选择"><span class="nav-number">4.2.4.</span> <span class="nav-text">4.2.4 方案选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-5-面向协议调用"><span class="nav-number">4.3.</span> <span class="nav-text">4.2.5 面向协议调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-模块接口设计（待完善）"><span class="nav-number">4.4.</span> <span class="nav-text">4.3 模块接口设计（待完善）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-模块代码设计"><span class="nav-number">4.5.</span> <span class="nav-text">4.4 模块代码设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-1-架构模式-MVVM"><span class="nav-number">5.</span> <span class="nav-text">4.4.1 架构模式 - MVVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-2-Model-纯Model"><span class="nav-number">6.</span> <span class="nav-text">4.4.2 Model - 纯Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-3-View-与-Controller-五层结构规范"><span class="nav-number">7.</span> <span class="nav-text">4.4.3 View 与 Controller - 五层结构规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、常见问题"><span class="nav-number">8.</span> <span class="nav-text">五、常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-如何合理的模块业务分离"><span class="nav-number">8.1.</span> <span class="nav-text">5.1 如何合理的模块业务分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-模块如何资源导入"><span class="nav-number">8.2.</span> <span class="nav-text">5.2 模块如何资源导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-使用到objective-c语言的功能代码，如何处理"><span class="nav-number">8.3.</span> <span class="nav-text">5.3 使用到objective-c语言的功能代码，如何处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-第三方的静态库，如果下潜"><span class="nav-number">8.4.</span> <span class="nav-text">5.4 第三方的静态库，如果下潜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、总结"><span class="nav-number">9.</span> <span class="nav-text">六、总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">10.</span> <span class="nav-text">参考：</span></a></li></ol></div>
             
 
           </div>
